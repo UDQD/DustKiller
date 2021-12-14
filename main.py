@@ -5,6 +5,7 @@ import uvicorn
 from random import randint as rnd
 import asyncio
 # from ML import Model
+from fastapi.middleware.cors import CORSMiddleware
 
 
 def background(f):
@@ -40,6 +41,11 @@ def activate_dust():
 activate_dust()
 app = FastAPI()
 
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
 
 
 
