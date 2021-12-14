@@ -10,7 +10,6 @@ class Box:
         self.width = width
         self.height = height
 
-
 class Room:
     def __init__(self, name: str, box: Box, connected_rooms: list = [], square=0):
         self.name = name
@@ -20,14 +19,14 @@ class Room:
 
 
 class DustKiller:
-    def __init__(self, rooms: list):
+    def __init__(self, rooms):
         self.voice = "Default"
         self.name = "Dustkiller3000"
         self.speed = 1
         self.x = 0
         self.y = 0
         self.now_room = "На зарядке"
-        self.rooms: list = rooms
+        self.rooms = rooms
         self.start_now = False
         self.do_clean = False
         self.schedule = []
@@ -133,7 +132,7 @@ class DustKiller:
 
     def log(self, text):
         now = datetime.datetime.now()
-        # print(f'[{now.strftime("%H:%M:%S")}] {self.name}: {text}')
+        print(f'[{now.strftime("%H:%M:%S")}] {self.name}: {text}')
 
 
 class User():
@@ -166,4 +165,4 @@ def start_dust_killer():
     dimas.activate_device(dustKiller)
 
 
-start_dust_killer()
+# start_dust_killer()

@@ -5,7 +5,6 @@ import os
 import json
 import random
 import threading
-from paho.mqtt import client as mqtt_client
 import json
 from dustkiller import Room, Box, User, DustKiller
 import asyncio
@@ -37,37 +36,8 @@ class BoxConnect:
             [True, self.dust_killer.need_clean_bug],
             ["", self.dust_killer.now_room],
         ]
-        self.run_services()
 
-    def run_services(self):
-        self.timer_to_save()
-        if not self.is_debug:
-            self.client: mqtt_client = self.connect()
-            self.subscribe()
-            self.client.loop_forever()
-        else:
-            print('===')
-            print("Connected to MQTT Broker!")
-            self.emulate_connect()
 
-    def connect(self) -> mqtt_client:
-        def on_connect(client, userdata, flags, rc):
-            if rc == 0:
-                print("Connected to MQTT Broker!")
-            else:
-                print("Failed to connect, return code %d\n", rc)
-
-        client = mqtt_client.Client(self.client_id)
-        client.username_pw_set(self.name, self.password)
-        client.on_connect = on_connect
-        client.connect(self.broker, self.port)
-        return client
-
-    def subscribe(self):
-        print('===')
-        for topic in topics:
-            self.client.subscribe(topic)
-        self.client.on_message = self.on_message
 
     def on_message(self, msg):
         print(
